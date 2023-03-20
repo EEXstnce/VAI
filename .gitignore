@@ -1,0 +1,43 @@
+# Ignore Python build and cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyo.d
+*.pyd.d
+*.egg-info/
+dist/
+*.egg
+*.eggs
+
+# Ignore virtual environment folders
+venv/
+env/
+*.env
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.sublime*
+*.iml
+
+# Ignore macOS files
+.DS_Store
+
+# Ignore pytest cache
+.pytest_cache/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore log and database files
+*.log
+*.sqlite
+
+# Ignore project-specific files and folders (add your own rules here)
+# e.g., data/, output/, etc.
