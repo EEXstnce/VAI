@@ -26,6 +26,26 @@ prompt_templates = {
         input_variables=["expert_name", "influential_idea"],
         template="What is a famous quote by {expert_name} about {influential_idea}?",
     ),
+    "goal_benefits": PromptTemplate(
+        input_variables=["goal"],
+        template="What is the biggest benefit of {goal}?",
+    ),
+    "goal_outcomes": PromptTemplate(
+        input_variables=["goal_benefits"],
+        template="What are ways to measure achievement of {goal_benefits}?",
+    ),
+    "author_book": PromptTemplate(
+        input_variables=["author"],
+        template="What is the most famous book by {author}?",
+    ),
+    "book_quote": PromptTemplate(
+        input_variables=["author_book"],
+        template="The most famous quote from {author_book} is...",
+    ),
+    "quote_usage": PromptTemplate(
+        input_variables=["author_book", "book_quote"],
+        template="What are the most famous uses of {book_quote} from people other than {author_book}?",
+    ),
 }
 
 # Define the dependencies between templates
@@ -36,4 +56,9 @@ dependencies = {
     "expert_name": [],
     "influential_idea": ["expert_name"],
     "idea_quote": ["expert_name", "influential_idea"],
+    "goal_benefits": [],
+    "goal_outcomes":["goal_benefits"],
+    "author_book": [],
+    "book_quote":["author_book"],
+    "quote_usage":["author_book", "book_quote"]
 }
