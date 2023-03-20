@@ -1,6 +1,6 @@
 from langchain.chains import LLMChain
 from langchain.llms import OpenAI
-from langchain.chains.base import Chain
+from pydantic import BaseModel
 from typing import Dict, List
 from prompt_templates import prompt_templates, dependencies
 import config
@@ -11,18 +11,22 @@ llm = OpenAI(temperature=0.9)
 # Create LLM chains for each prompt template
 llm_chains = {key: LLMChain(llm=llm, prompt=prompt_templates[key]) for key in prompt_templates}
 
-class CustomSequentialChain(Chain):
+class CustomSequentialChain(BaseModel):
     llm_chains: Dict[str, LLMChain]
+    flow: List[str]
 
     @property
     def input_keys(self) -> List[str]:
+        for key in self.flow:
+            if not dependencies[key]:
+                return prompt_templates[key].input_variables
         return ['product']
 
     @property
     def output_keys(self) -> List[str]:
-        return list(prompt_templates.keys())
+        return self.flow
 
-    def _call(self, inputs: Dict[str, str]) -> Dict[str, str]:
+    def run_chain(self, inputs: Dict[str, str]) -> Dict[str, str]:
         results = {}
         visited = set()
 
@@ -36,10 +40,7 @@ class CustomSequentialChain(Chain):
                 results[key] = output
                 inputs[key] = output
 
-        for key in self.llm_chains:
+        for key in self.flow:
             process_chain(key)
 
         return results
-
-    def run_chain(self, inputs: Dict[str, str]) -> Dict[str, str]:
-        return self(inputs)

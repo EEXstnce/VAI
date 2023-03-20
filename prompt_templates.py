@@ -12,7 +12,19 @@ prompt_templates = {
     ),
     "marketing_strategy": PromptTemplate(
         input_variables=["slogan", "company_name"],
-        template="Write marketing campaign copy for {company_name} with the slogan '{slogan}'?",
+        template="What is a good marketing strategy for {company_name} with the slogan '{slogan}'?",
+    ),
+    "expert_name": PromptTemplate(
+        input_variables=["expertise"],
+        template="Who is a renowned expert in the field of {expertise}?",
+    ),
+    "influential_idea": PromptTemplate(
+        input_variables=["expert_name"],
+        template="What is {expert_name}'s most influential idea?",
+    ),
+    "idea_quote": PromptTemplate(
+        input_variables=["expert_name", "influential_idea"],
+        template="What is a famous quote by {expert_name} about {influential_idea}?",
     ),
 }
 
@@ -21,5 +33,7 @@ dependencies = {
     "company_name": [],
     "slogan": ["company_name"],
     "marketing_strategy": ["slogan", "company_name"],
+    "expert_name": [],
+    "influential_idea": ["expert_name"],
+    "idea_quote": ["expert_name", "influential_idea"],
 }
-
