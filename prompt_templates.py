@@ -12,7 +12,7 @@ prompt_templates = {
     ),
     "marketing_strategy": PromptTemplate(
         input_variables=["slogan", "company_name"],
-        template="What is a good marketing strategy for {company_name} with the slogan '{slogan}'?",
+        template="Write marketing campaign copy for {company_name} with the slogan '{slogan}'?",
     ),
 }
 
