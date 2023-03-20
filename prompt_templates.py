@@ -10,9 +10,9 @@ prompt_templates = {
         input_variables=["company_name"],
         template="What is a good slogan for {company_name}?",
     ),
-    "marketing_strategy": PromptTemplate(
+    "marketing_campaign": PromptTemplate(
         input_variables=["slogan", "company_name"],
-        template="What is a good marketing strategy for {company_name} with the slogan '{slogan}'?",
+        template="What is a good fear-based marketing campaign for {company_name} with the slogan '{slogan}'?",
     ),
     "expert_name": PromptTemplate(
         input_variables=["expertise"],
@@ -32,7 +32,7 @@ prompt_templates = {
 dependencies = {
     "company_name": [],
     "slogan": ["company_name"],
-    "marketing_strategy": ["slogan", "company_name"],
+    "marketing_campaign": ["slogan", "company_name"],
     "expert_name": [],
     "influential_idea": ["expert_name"],
     "idea_quote": ["expert_name", "influential_idea"],

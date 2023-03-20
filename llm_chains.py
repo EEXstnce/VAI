@@ -6,7 +6,7 @@ from prompt_templates import prompt_templates, dependencies
 import config
 
 # Create an OpenAI instance with a high temperature for more randomness
-llm = OpenAI(temperature=0.9)
+llm = OpenAI(temperature=0.7)
 
 # Create LLM chains for each prompt template
 llm_chains = {key: LLMChain(llm=llm, prompt=prompt_templates[key]) for key in prompt_templates}

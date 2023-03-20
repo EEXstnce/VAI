@@ -38,5 +38,9 @@ for key in overall_chain.input_keys:
 result = overall_chain.run_chain(inputs)
 
 # Print the output
+processed_keys = set()
 for key in overall_chain.output_keys:
+    if key in processed_keys:
+        continue
+    processed_keys.add(key)
     print(f"{key.capitalize()}: {result[key]}")
