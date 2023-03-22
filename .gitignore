@@ -44,3 +44,4 @@ env/
 va/lib/python3.10/site-packages/**
 va/bin/**
 results.json
+prompt.txt

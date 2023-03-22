@@ -2,7 +2,7 @@ from langchain.chains import LLMChain
 from langchain.llms import OpenAI
 from pydantic import BaseModel
 from typing import Dict, List
-from prompt_templates import prompt_templates, dependencies
+from template_manager import prompt_templates, dependencies
 import config
 
 # Create an OpenAI instance with a high temperature for more randomness

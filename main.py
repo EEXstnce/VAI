@@ -1,7 +1,7 @@
 import json
 import os
 from llm_chains import CustomSequentialChain, llm_chains, create_llm_chains
-from prompt_templates import dependencies
+from template_manager import dependencies
 from typing import Dict, List
 
 # Function to get all steps in the flow
