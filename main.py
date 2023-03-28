@@ -1,6 +1,6 @@
 import json
 import os
-from llm_chains import CustomSequentialChain, llm_chains, create_llm_chains
+from llm_chains import CustomSequentialChain, llm_chains
 from template_manager import dependencies
 from typing import Dict, List
 
@@ -33,26 +33,24 @@ def print_output(output_keys: List[str], result: Dict[str, str]) -> None:
         processed_keys.add(key)
         print(f"{key.capitalize()}: {result[key]}")
 
-# Function to save the result to a JSON file
-def save_result_to_json(chain: List[str], result: Dict[str, str], filename: str = "results.json") -> None:
-    if os.path.exists(filename):
-        try:
-            with open(filename, "r") as f:
-                data = json.load(f)
-        except json.JSONDecodeError:
-            data = []
-    else:
-        data = []
+# Function to save the result to a Python file
+def save_result_to_py(chain: List[str], result: Dict[str, str]) -> None:
+    dir_path = 'code'
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
 
-    result_with_chain = {
-        "chain": chain,
-        "result": result
-    }
-    data.append(result_with_chain)
+    for key in chain:
+        filename = os.path.join(dir_path, f"{key}.py")
+        with open(filename, "w") as f:
+            f.write(f"{key} = {result[key]}\n")
 
-    with open(filename, "w") as f:
-        json.dump(data, f, indent=4)
+        # Remove "key = " prefix from the file
+        with open(filename, "r") as f:
+            contents = f.read()
+        with open(filename, "w") as f:
+            f.write(contents.replace(f"{key} = ", ""))
 
+    print("Results saved to Python files.")
 
 
 # Get the desired flow from the user
@@ -78,6 +76,10 @@ result = overall_chain.run_chain(inputs)
 # Print the output
 print_output(overall_chain.output_keys, result)
 
-# Save the result to a JSON file
-save_result_to_json(all_steps, result)
-
+# Ask the user if they want to save the result to a Python file
+save_to_py = input("Do you want to save the result to a Python file? (y/n) ")
+if save_to_py.lower() == "y":
+    save_result_to_py(all_steps, result)
+    print("Result saved to a Python file.")
+else:
+    print("Result not saved.")

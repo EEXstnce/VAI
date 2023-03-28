@@ -1,12 +1,20 @@
 from langchain.chains import LLMChain
+from langchain.agents import load_tools, initialize_agent
+from langchain.llms import OpenAI
+from langchain.llms.loading import load_llm
 from langchain.llms import OpenAI
 from pydantic import BaseModel
 from typing import Dict, List
 from template_manager import prompt_templates, dependencies
+import json
 import config
 
-# Create an OpenAI instance with a high temperature for more randomness
-llm = OpenAI(temperature=0.7)
+# Load the LLM configuration from the JSON file
+with open("llm_config.json", "r") as f:
+    llm_config = json.load(f)
+
+# Create an instance of the OpenAI class with the loaded LLM configuration
+llm = OpenAI(**llm_config)
 
 # Create LLM chains for each prompt template
 llm_chains = {key: LLMChain(llm=llm, prompt=prompt_templates[key]) for key in prompt_templates}

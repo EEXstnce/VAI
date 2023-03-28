@@ -43,7 +43,10 @@ dependencies = {
 
     # Emerge dependencies
     "E_start": [],
-    "E_two": ["E_start"]
-    # Emerge Prompt dependencies
+    "E_two": ["E_start"],
+    # code
+    "test":[],
+    "front":["test"],
+    "html":["front"]
 }
 
