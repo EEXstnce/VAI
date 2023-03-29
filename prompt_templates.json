@@ -103,8 +103,8 @@
     "input_variables": ["test"],
     "template": "write me a flask front end for this code called test.py, include all necessary imports: {test}"
   },
-  "html": {
-    "input_variables": ["front", "test"],
-    "template": "write me html for front end like: {front} for this code: {test}"
+  "bugs": {
+    "input_variables": ["test", "front"],
+    "template": "pretend you are a python compiler, run the following code and determine if there are errors, if there are then fix the code and return it in the same format. test.py: {test} and front.py: {front}"
   }
 }

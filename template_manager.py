@@ -47,6 +47,6 @@ dependencies = {
     # code
     "test":[],
     "front":["test"],
-    "html":["front"]
+    "bugs":["test", "front"]
 }
 
