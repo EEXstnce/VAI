@@ -42,6 +42,6 @@ env/
 # Ignore project-specific files and folders (add your own rules here)
 # e.g., data/, output/, etc.
 va/lib/python3.10/site-packages/**
-va/**
+va
 results.json
 prompt.txt
