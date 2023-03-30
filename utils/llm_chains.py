@@ -5,12 +5,12 @@ from langchain.llms.loading import load_llm
 from langchain.llms import OpenAI
 from pydantic import BaseModel
 from typing import Dict, List
-from template_manager import prompt_templates, dependencies
+from utils.template_manager import prompt_templates, dependencies
 import json
-import config
+import utils.config as config
 
 # Load the LLM configuration from the JSON file
-with open("llm_config.json", "r") as f:
+with open("utils/llm_config.json", "r") as f:
     llm_config = json.load(f)
 
 # Create an instance of the OpenAI class with the loaded LLM configuration

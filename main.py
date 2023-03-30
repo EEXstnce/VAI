@@ -1,71 +1,17 @@
-import json
-import os
-from llm_chains import CustomSequentialChain, llm_chains
-from template_manager import dependencies
+from utils.llm_chains import CustomSequentialChain, llm_chains
+from utils.template_manager import dependencies
+from utils.chat_utils import get_all_steps_in_flow, get_user_input, history, print_output
+from utils.result_saving import save_result_to_py, save_result_to_json
 from typing import Dict, List
 
-# Function to get all steps in the flow
-def get_all_steps_in_flow(flow: str, deps: Dict[str, List[str]]) -> List[str]:
-    steps = []
-    to_process = [flow]
+from langchain.memory import ChatMessageHistory
+from langchain.schema import messages_from_dict, messages_to_dict
 
-    while to_process:
-        current = to_process.pop()
-        steps.append(current)
-        to_process.extend(deps[current])
-
-    return list(reversed(steps))
-
-# Function to get user input
-def get_user_input(input_keys: List[str], previous_results: Dict[str, str] = None) -> Dict[str, str]:
-    inputs = {}
-    for key in input_keys:
-        if previous_results:
-            print("Previous results:")
-            for i, (k, v) in enumerate(previous_results.items(), 1):
-                print(f"{i}. {k}: {v}")
-
-            use_previous = input(f"Do you want to use any previous result for {key}? (y/n) ")
-            if use_previous.lower() == "y":
-                result_number = int(input("Enter the number of the result you want to use: "))
-                selected_result_key = list(previous_results.keys())[result_number - 1]
-                value = previous_results[selected_result_key]
-            else:
-                value = input(f"Enter {key}: ")
-        else:
-            value = input(f"Enter {key}: ")
-        inputs[key] = value
-    return inputs
-
-
-
-# Function to print output
-def print_output(output_keys: List[str], result: Dict[str, str]) -> None:
-    processed_keys = set()
-    for key in output_keys:
-        if key in processed_keys:
-            continue
-        processed_keys.add(key)
-        print(f"{key.capitalize()}: {result[key]}")
-
-# Function to save the result to a Python file
-def save_result_to_py(chain: List[str], result: Dict[str, str]) -> None:
-    dir_path = 'code'
-    if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
-
-    for key in chain:
-        filename = os.path.join(dir_path, f"{key}.py")
-        with open(filename, "w") as f:
-            f.write(f"{key} = {result[key]}\n")
-
-        # Remove "key = " prefix from the file
-        with open(filename, "r") as f:
-            contents = f.read()
-        with open(filename, "w") as f:
-            f.write(contents.replace(f"{key} = ", ""))
-
-    print("Results saved to Python files.")
+# Moved get_all_steps_in_flow to chat_utils
+# Moved get_user_input to chat_utils
+# Moved print_output to chat_utils
+# Moved save_result_to_py to result_saving
+# Moved save_result_to_json to result_saving
 
 previous_results = {}
 
@@ -93,6 +39,11 @@ while True:
     # Print the output
     print_output(overall_chain.output_keys, result)
 
+    dicts = messages_to_dict(history.messages)
+    new_messages = messages_from_dict(dicts)
+
+    print(new_messages)
+
     # Ask the user if they want to save the result to a Python file
     save_to_py = input("Do you want to save the result to a Python file? (y/n) ")
     if save_to_py.lower() == "y":
@@ -100,6 +51,8 @@ while True:
         print("Result saved to a Python file.")
     else:
         print("Result not saved.")
+
+    save_result_to_json(all_steps, result)  # Pass both chain and result to the function
 
     # Save the result for the next run
     previous_results = result.copy()

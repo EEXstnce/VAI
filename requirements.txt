@@ -1,3 +1,4 @@
-python-dotenv==0.19.2
-openai==0.10.5
-langchain
+dotenv==0.19.4
+gpt-3-simple==0.9.4
+pydantic==1.9.0
+serpapi==0.0.13
