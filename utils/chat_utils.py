@@ -33,7 +33,7 @@ def get_user_input(input_keys: List[str], previous_results: Dict[str, str] = Non
                 value = input(f"Enter {key}: ")
         else:
             value = input(f"Enter {key}: ")
-            history.add_user_message(value)
+        history.add_user_message(value)
         inputs[key] = value
     return inputs
 

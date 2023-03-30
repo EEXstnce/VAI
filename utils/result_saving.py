@@ -2,7 +2,8 @@ import json
 import os
 from typing import Dict, List
 
-from langchain.schema import messages_to_dict
+from langchain.schema import messages_to_dict, messages_from_dict
+from utils.chat_utils import history
 
 # Function to save the result to a Python file
 def save_result_to_py(chain: List[str], result: Dict[str, str]) -> None:
@@ -26,6 +27,8 @@ def save_result_to_py(chain: List[str], result: Dict[str, str]) -> None:
 # Function to save the result to a JSON file, formatted as specified
 def save_result_to_json(chain: List[str], result: Dict[str, str]) -> None:
     filename = 'results.json'
+
+    dicts = messages_to_dict(history.messages)
     
     # Create an entry in the desired format
     entry = {

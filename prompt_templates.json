@@ -61,7 +61,7 @@
   },
   "product_features": {
     "input_variables": ["solution"],
-    "template": "What are the core features of a product that solves the problem with the following solution: {solution}?"
+    "template": "What are the core technical features of a product that solves the problem with the following solution: {solution}?"
   },
   "technical_requirements": {
     "input_variables": ["product_features"],
