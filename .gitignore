@@ -43,5 +43,7 @@ env/
 # e.g., data/, output/, etc.
 va/lib/python3.10/site-packages/**
 va
+code/**
 results.json
+history.json
 prompt.txt
