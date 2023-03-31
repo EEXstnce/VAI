@@ -1,7 +1,7 @@
 from utils.llm_chains import CustomSequentialChain, llm_chains
 from utils.template_manager import dependencies
 from utils.chat_utils import get_all_steps_in_flow, get_user_input, history, print_output
-from utils.result_saving import save_result_to_py, save_result_to_json
+from utils.result_saving import save_result_to_py, save_result_to_json, save_history_to_json
 from typing import Dict, List
 
 from langchain.memory import ChatMessageHistory
@@ -60,4 +60,8 @@ while True:
     # Ask the user if they want to run the app again
     run_again = input("Do you want to run the app again? (y/n) ")
     if run_again.lower() != "y":
+        # Save new_messages to history.json
+        save_history_to_json(new_messages)
         break
+
+

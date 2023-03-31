@@ -51,3 +51,28 @@ def save_result_to_json(chain: List[str], result: Dict[str, str]) -> None:
         json.dump(existing_data, f, indent=4)
     
     print("Results appended to JSON file.")
+
+# Function to convert message objects to dictionaries
+def message_to_dict(message):
+    return {
+        'type': message.__class__.__name__,
+        'content': message.content,
+        'additional_kwargs': message.additional_kwargs
+    }
+
+# Updated function to append new_messages to history.json
+def save_history_to_json(new_messages):
+    # Convert message objects to dictionaries
+    new_messages_dicts = [message_to_dict(message) for message in new_messages]
+
+    history_file = 'history.json'
+    if not os.path.exists(history_file) or os.path.getsize(history_file) == 0:
+        history_data = []
+    else:
+        with open(history_file, 'r') as json_file:
+            history_data = json.load(json_file)
+
+    history_data.append(new_messages_dicts)
+
+    with open(history_file, 'w') as json_file:
+        json.dump(history_data, json_file)

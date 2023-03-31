@@ -1,0 +1,24 @@
+[
+  [
+    {
+      "type": "HumanMessage",
+      "content": "explain the rules of a simple coin toss game",
+      "additional_kwargs": {}
+    },
+    {
+      "type": "AIMessage",
+      "content": "\n\nA coin toss game is a simple game of chance. The rules of the game are as follows:\n\n1. Two players decide on heads or tails.\n2. One player tosses the coin.\n3. The other player calls heads or tails.\n4. If the call is correct, that player wins.\n5. If the call is incorrect, the other player wins.\n6. The game can be played multiple times until one player has won a predetermined number of times.",
+      "additional_kwargs": {}
+    },
+    {
+      "type": "HumanMessage",
+      "content": "\n\nA coin toss game is a simple game of chance. The rules of the game are as follows:\n\n1. Two players decide on heads or tails.\n2. One player tosses the coin.\n3. The other player calls heads or tails.\n4. If the call is correct, that player wins.\n5. If the call is incorrect, the other player wins.\n6. The game can be played multiple times until one player has won a predetermined number of times.",
+      "additional_kwargs": {}
+    },
+    {
+      "type": "AIMessage",
+      "content": "\n\nimport random\n\n#A function to flip the coin\ndef coin_flip():\n    toss = random.choice(['Heads', 'Tails'])\n    return toss\n\n#A function to determine the winner\ndef determine_winner(player1,player2):\n    toss = coin_flip()\n    print(\"The coin was tossed and it landed on \" + toss)\n    if toss == player1:\n        print(\"Player 1 wins!\")\n    elif toss == player2:\n        print(\"Player 2 wins!\")\n\n#Initialize score count\nplayer1_score = 0\nplayer2_score = 0\n\n#Initialize game loop\ngame_over = False\n\nwhile game_over == False:\n    player1 = input(\"Player 1, call heads or tails: \")\n    player2 = input(\"Player 2, call heads or tails: \")\n    determine_winner(player1,player2)\n    if player1 == toss:\n        player1_score += 1\n    elif player2 == toss:\n        player2_score += 1\n    \n    print(\"Player 1 score: \" + str(player1_score))\n    print(\"Player 2 score: \" + str(player2_score))\n    if player1_score == 5:\n        print(\"Player 1 wins the game!\")\n        game_over = True\n    elif player2_score == 5:\n        print(\"Player 2 wins the game!\")\n        game_over = True",
+      "additional_kwargs": {}
+    }
+  ]
+]
