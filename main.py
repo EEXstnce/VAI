@@ -42,7 +42,7 @@ while True:
     dicts = messages_to_dict(history.messages)
     new_messages = messages_from_dict(dicts)
 
-    print(new_messages)
+    # print(new_messages)
 
     # Ask the user if they want to save the result to a Python file
     save_to_py = input("Do you want to save the result to a Python file? (y/n) ")
