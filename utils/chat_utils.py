@@ -1,5 +1,6 @@
 from typing import Dict, List
 from langchain.memory import ChatMessageHistory
+from utils.template_manager import dependencies
 
 history = ChatMessageHistory()
 
@@ -33,7 +34,7 @@ def get_user_input(input_keys: List[str], previous_results: Dict[str, str] = Non
                 value = input(f"Enter {key}: ")
         else:
             value = input(f"Enter {key}: ")
-        history.add_user_message(value)
+            history.add_user_message(value)
         inputs[key] = value
     return inputs
 
@@ -46,3 +47,13 @@ def print_output(output_keys: List[str], result: Dict[str, str]) -> None:
         processed_keys.add(key)
         history.add_ai_message(result[key])
         print(f"{key.capitalize()}: {result[key]}")
+
+def display_flows_and_get_selection():
+    print("Available flows:")
+    for i, key in enumerate(dependencies, 1):
+        print(f"{i}. {key}")
+    flow_number = int(input("Select a flow by entering its number: "))
+    selected_flow = list(dependencies)[flow_number - 1]
+    return selected_flow
+
+

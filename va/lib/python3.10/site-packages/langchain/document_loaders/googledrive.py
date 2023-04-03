@@ -6,7 +6,8 @@
 #   https://console.cloud.google.com/flows/enableapi?apiid=drive.googleapis.com
 # 3. Authorize credentials for desktop app:
 #   https://developers.google.com/drive/api/quickstart/python#authorize_credentials_for_a_desktop_application # noqa: E501
-
+# 4. For service accounts visit
+#   https://cloud.google.com/iam/docs/service-accounts-create
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -22,6 +23,7 @@ SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 class GoogleDriveLoader(BaseLoader, BaseModel):
     """Loader that loads Google Docs from Google Drive."""
 
+    service_account_key: Path = Path.home() / ".credentials" / "keys.json"
     credentials_path: Path = Path.home() / ".credentials" / "credentials.json"
     token_path: Path = Path.home() / ".credentials" / "token.json"
     folder_id: Optional[str] = None
@@ -60,6 +62,7 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
         # Adapted from https://developers.google.com/drive/api/v3/quickstart/python
         try:
             from google.auth.transport.requests import Request
+            from google.oauth2 import service_account
             from google.oauth2.credentials import Credentials
             from google_auth_oauthlib.flow import InstalledAppFlow
         except ImportError:
@@ -72,6 +75,11 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
             )
 
         creds = None
+        if self.service_account_key.exists():
+            return service_account.Credentials.from_service_account_file(
+                str(self.service_account_key), scopes=SCOPES
+            )
+
         if self.token_path.exists():
             creds = Credentials.from_authorized_user_file(str(self.token_path), SCOPES)
 
@@ -88,24 +96,78 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
 
         return creds
 
+    def _load_sheet_from_id(self, id: str) -> List[Document]:
+        """Load a sheet and all tabs from an ID."""
+
+        from googleapiclient.discovery import build
+
+        creds = self._load_credentials()
+        sheets_service = build("sheets", "v4", credentials=creds)
+        spreadsheet = sheets_service.spreadsheets().get(spreadsheetId=id).execute()
+        sheets = spreadsheet.get("sheets", [])
+
+        documents = []
+        for sheet in sheets:
+            sheet_name = sheet["properties"]["title"]
+            result = (
+                sheets_service.spreadsheets()
+                .values()
+                .get(spreadsheetId=id, range=sheet_name)
+                .execute()
+            )
+            values = result.get("values", [])
+
+            header = values[0]
+            for i, row in enumerate(values[1:], start=1):
+                metadata = {
+                    "source": (
+                        f"https://docs.google.com/spreadsheets/d/{id}/"
+                        f"edit?gid={sheet['properties']['sheetId']}"
+                    ),
+                    "title": f"{spreadsheet['properties']['title']} - {sheet_name}",
+                    "row": i,
+                }
+                content = []
+                for j, v in enumerate(row):
+                    title = header[j].strip() if len(header) > j else ""
+                    content.append(f"{title}: {v.strip()}")
+
+                page_content = "\n".join(content)
+                documents.append(Document(page_content=page_content, metadata=metadata))
+
+        return documents
+
     def _load_document_from_id(self, id: str) -> Document:
         """Load a document from an ID."""
         from io import BytesIO
 
         from googleapiclient.discovery import build
+        from googleapiclient.errors import HttpError
         from googleapiclient.http import MediaIoBaseDownload
 
         creds = self._load_credentials()
         service = build("drive", "v3", credentials=creds)
 
+        file = service.files().get(fileId=id).execute()
         request = service.files().export_media(fileId=id, mimeType="text/plain")
         fh = BytesIO()
         downloader = MediaIoBaseDownload(fh, request)
         done = False
-        while done is False:
-            status, done = downloader.next_chunk()
+        try:
+            while done is False:
+                status, done = downloader.next_chunk()
+
+        except HttpError as e:
+            if e.resp.status == 404:
+                print("File not found: {}".format(id))
+            else:
+                print("An error occurred: {}".format(e))
+
         text = fh.getvalue().decode("utf-8")
-        metadata = {"source": f"https://docs.google.com/document/d/{id}/edit"}
+        metadata = {
+            "source": f"https://docs.google.com/document/d/{id}/edit",
+            "title": f"{file.get('name')}",
+        }
         return Document(page_content=text, metadata=metadata)
 
     def _load_documents_from_folder(self) -> List[Document]:
@@ -129,6 +191,8 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
         for item in items:
             if item["mimeType"] == "application/vnd.google-apps.document":
                 returns.append(self._load_document_from_id(item["id"]))
+            elif item["mimeType"] == "application/vnd.google-apps.spreadsheet":
+                returns.extend(self._load_sheet_from_id(item["id"]))
             elif item["mimeType"] == "application/pdf":
                 returns.extend(self._load_file_from_id(item["id"]))
             else:
@@ -153,6 +217,7 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
         creds = self._load_credentials()
         service = build("drive", "v3", credentials=creds)
 
+        file = service.files().get(fileId=id).execute()
         request = service.files().get_media(fileId=id)
         fh = BytesIO()
         downloader = MediaIoBaseDownload(fh, request)
@@ -170,6 +235,7 @@ class GoogleDriveLoader(BaseLoader, BaseModel):
                 page_content=page.extract_text(),
                 metadata={
                     "source": f"https://drive.google.com/file/d/{id}/view",
+                    "title": f"{file.get('name')}",
                     "page": i,
                 },
             )
