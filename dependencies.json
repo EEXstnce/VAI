@@ -1,75 +1,16 @@
 {
-    "pr_A": [],
-    "prpr_1": [],
-    "prpr_2": [],
-    "pr_X": [],
-    "company_name": [],
-    "slogan": [
-        "company_name"
-    ],
-    "marketing_campaign": [
-        "slogan",
-        "company_name"
-    ],
-    "expert_name": [],
-    "influential_idea": [
-        "expert_name"
-    ],
-    "idea_quote": [
-        "expert_name",
-        "influential_idea"
-    ],
-    "goal_benefits": [],
-    "goal_outcomes": [
-        "goal_benefits"
-    ],
-    "author_book": [],
-    "book_quote": [
-        "author_book"
-    ],
-    "quote_usage": [
-        "author_book",
-        "book_quote"
-    ],
-    "product_domain": [],
-    "target_audience": [
-        "product_domain"
-    ],
-    "user_needs": [
-        "target_audience"
-    ],
-    "solution": [
-        "user_needs"
-    ],
-    "product_features": [
-        "solution"
-    ],
-    "technical_requirements": [
-        "product_features"
-    ],
-    "milestones": [
-        "product_features"
-    ],
-    "E_start": [],
-    "E_two": [
-        "E_start"
-    ],
-    "test": [],
-    "front": [
-        "test"
-    ],
-    "bugs": [
-        "test",
-        "front"
-    ],
-    "how_can_you_goal": [],
-    "what_strategies_can_challenge": [],
-    "how_does_solution_solution": [],
-    "how_can_you_team": [],
-    "what_can_you_time": [],
-    "how_could_you_situation": [],
-    "what_are_some_strategy": [],
-    "what_could_be_problem": [],
-    "what_implications_does_concept": [],
-    "what_other_opportunities_idea": []
+  "chat": [],
+  "Prompt_gen1": [],
+  "Prompt_gen2": [],
+  "test": [],
+  "front": ["test"],
+  "front_code_in": [],
+  "bugs": ["test", "front"],
+  "return": [],
+  "compress2": [],
+  "compress": [],
+  "decompress": ["compress"],
+  "compare_stats": ["compress", "decompress"],
+  "syntax_up": [],
+  "comp_test": []
 }

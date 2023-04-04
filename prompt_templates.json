@@ -1,123 +1,18 @@
 {
-  "company_name": {
-    "_description": "product > company_name",
-    "input_variables": ["product"],
-    "template": "What is a good name for a company that makes {product}?"
+  "chat": {
+    "_description": "simple prompting",
+    "input_variables": ["input"],
+    "template": "{input}"
   },
-  "slogan": {
-    "_description": "company_name > slogan",
-    "input_variables": ["company_name"],
-    "template": "What is a good slogan for {company_name}?"
-  },
-  "marketing_campaign": {
-    "_description": "slogan, company_name > marketing_campaign",
-    "input_variables": ["slogan", "company_name"],
-    "template": "What is a good fear-based marketing campaign for {company_name} with the slogan '{slogan}'?"
-  },
-  "expert_name": {
-    "_description": "expertise > expert_name",
-    "input_variables": ["expertise"],
-    "template": "Who is a renowned expert in the field of {expertise}?"
-  },
-  "influential_idea": {
-    "_description": "expert_name > influential_idea",
-    "input_variables": ["expert_name"],
-    "template": "What is {expert_name}'s most influential idea?"
-  },
-  "idea_quote": {
-    "_description": "expert_name, influential_idea > idea_quote",
-    "input_variables": ["expert_name", "influential_idea"],
-    "template": "What is a famous quote by {expert_name} about {influential_idea}?"
-  },
-  "goal_benefits": {
-    "_description": "goal > goal_benefits",
-    "input_variables": ["goal"],
-    "template": "What is the biggest benefit of {goal}?"
-  },
-  "goal_outcomes": {
-    "_description": "goal_benefits > goal_outcomes",
-    "input_variables": ["goal_benefits"],
-    "template": "What are ways to measure achievement of {goal_benefits}?"
-  },
-  "author_book": {
-    "_description": "author > author_book",
-    "input_variables": ["author"],
-    "template": "What is the most famous book by {author}?"
-  },
-  "book_quote": {
-    "_description": "author_book > book_quote",
-    "input_variables": ["author_book"],
-    "template": "The most famous quote from {author_book} is..."
-  },
-  "quote_usage": {
-    "_description": "author_book, book_quote > quote_usage",
-    "input_variables": ["author_book", "book_quote"],
-    "template": "What are the most famous uses of {book_quote} from people other than {author_book}?"
-  },
-  "product_domain": {
-    "_description": "product > product_domain",
-    "input_variables": ["product"],
-    "template": "What is the domain or industry of the {product}?"
-  },
-  "target_audience": {
-    "_description": "product_domain > target_audience",
-    "input_variables": ["product_domain"],
-    "template": "Who is the target audience for a product in the {product_domain} domain?"
-  },
-  "user_needs": {
-    "_description": "target_audience > user_needs",
-    "input_variables": ["target_audience"],
-    "template": "What are the main needs of the {target_audience}?"
-  },
-  "solution": {
-    "_description": "user_needs > solution",
-    "input_variables": ["user_needs"],
-    "template": "How can a product solve the needs of users with the following needs: {user_needs}?"
-  },
-  "product_features": {
-    "_description": "solution > product_features",
-    "input_variables": ["solution"],
-    "template": "What are the core technical features of a product that solves the problem with the following solution: {solution}?"
-  },
-  "technical_requirements": {
-    "_description": "product_features > technical_requirements",
-    "input_variables": ["product_features"],
-    "template": "Describe the technical requirements of the following product features: {product_features}"
-  },
-  "milestones": {
-    "_description": "product_features > milestones",
-    "input_variables": ["product_features"],
-    "template": "What are the development milestones for implementing the following features: {product_features}?"
-  },
-  "prpr_1": {
+  "Prompt_gen1": {
     "_description": "domain > prpr_1",
     "input_variables": ["domain"],
     "template": "Collect your thoughts and assume the role of an expert in {domain}. Use the following structure to return 5 prompt that have transferability to other domains and don't reference the given {domain}: \"transferable_idea\": PromptTemplate( input_variables=[\"input\"], template=\"your prompt here can wrap {{thing}}\", ),"
   },
-  "prpr_2": {
+  "Prompt_gen2": {
     "_description": "domain > prpr_2",
     "input_variables": ["domain"],
     "template": "Imagine that you are an expert in {domain}, and you want to explore how the concepts and ideas from that domain can be applied to other areas. Using the following relative structure (take some creative liberty occasionally), provide 5 prompts that illustrate transferable ideas that don't reference the original domain explicitly: \"transferable_idea\": PromptTemplate( input_variables=[\"MUST_BE_PRESENT_INPUT_VAR\"], template=\"your ideas about {{MUST_BE_PRESENT_INPUT_VAR}} ending in some open ended way\",), *ensure formatting, don't mention original domain, and end your prompt with ONE of the following not always a question,.:;?"
-  },
-  "pr_X": {
-    "_description": "input > pr_X",
-    "input_variables": ["input"],
-    "template": "Create an inversion of {input}"
-  },
-  "pr_A": {
-    "_description": "input > pr_A",
-    "input_variables": ["input"],
-    "template": "{input}"
-  },
-  "E_start": {
-    "_description": "input > E_start",
-    "input_variables": ["input"],
-    "template": "You are {input}GPT, and expert on the topic of {input}. What is the most interesting thing you know?"
-  },
-  "E_two": {
-    "_description": "E_start > E_two",
-    "input_variables": ["E_start"],
-    "template": "You told me this: {E_start} What are the key elements in the least verbose list possible?"
   },
   "test": {
     "_description": "app_idea > test",
@@ -139,54 +34,49 @@
     "input_variables": ["expertise"],
     "template": "The goal of this exercise is to create an optimal prompt for an AI assistant to become a professional at {expertise}. To do this, think about what qualities a professional in {expertise} should possess. Consider qualities such as creativity, conciseness, clarity, and education to be the goal of this exercise. Then, create a prompt that incorporates these qualities and challenges the AI assistant to apply them to their prompt interactions with the user."
   },
-  "how_can_you_goal": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["goal"],
-    "template": "How can you ensure {goal} is achieved?"
+  "front_code_in": {
+    "_description": "create a front end from code",
+    "input_variables": ["code"],
+    "template": "Write a Flask front end for this code: {code}"
   },
-  "what_strategies_can_challenge": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["challenge"],
-    "template": "What strategies can you use to overcome {challenge}?"
+  "compress4": {
+    "_description": "compress text",
+    "input_variables": ["compress"],
+    "template": "Compress the text below into ≤280 characters. Retain the ability for GPT to accurately reconstruct the original intention. Use abbreviations, symbols (unicode, emoji, etc.), and language mixing. Ensure lossless compression: {compress}"
   },
-  "how_does_solution_solution": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["solution"],
-    "template": "How does {solution} fit into your overall plan?"
+  "decompress4": {
+    "_description": "decompress text",
+    "input_variables": ["compress"],
+    "template": "Reconstruct the original text from the compressed version below. The compressed text was generated using abbreviations, symbols (unicode, emoji, etc.), and language mixing. Ensure accurate reconstruction of the original text: {compress}"
   },
-  "how_can_you_team": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["team"],
-    "template": "How can you get your {team} to work together effectively?"
+  "compress": {
+    "_description": "compress text 2",
+    "input_variables": ["compress"],
+    "template": "compress the following text in a way that is lossless but results in the minimum number of tokens which could be fed into an LLM like yourself as-is and produce the same output. feel free to use multiple languages, symbols, other up-front priming to lay down rules. this is entirely for yourself to recover and proceed from with the same conceptual priming, not for humans to decompress: {compress}"
   },
-  "what_can_you_time": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["time"],
-    "template": "What can you do in the next {time} to ensure progress is made?"
+  "compress3": {
+    "_description": "compress text 2",
+    "input_variables": ["compress"],
+    "template": "Compress the following text using a lossless algorithm that produces the minimum number of tokens for an LLM such as yourself to process. You may use multiple languages, symbols, and other priming techniques to create rules. This compression is for your use only, and should allow you to recover and produce the same output as the original text with the same conceptual priming, not for humans to decompress: {compress}"
   },
-  "how_could_you_situation": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["situation"],
-    "template": "How could you use {situation} to create a solution that has potential applications in other areas?"
+  "decompress": {
+    "_description": "decompress text",
+    "input_variables": ["compress"],
+    "template": "Reconstruct the original text from the compressed version below: {compress}"
   },
-  "what_are_some_strategy": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["strategy"],
-    "template": "What are some ways that {strategy} could be applied to other fields or industries?"
+  "compare_stats": {
+    "_description": "evaluate compression",
+    "input_variables": ["compress", "decompress"],
+    "template": "Statistically tell me about the effectiveness of this compression in terms of size reduction, and maintenance of information conveyed, original text -> decompressed text is most important./n    compressed: {compress} /n    decompressed: {decompress}"
   },
-  "what_could_be_problem": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["problem"],
-    "template": "What could be done to address the {problem}? Could it be a solution to a similar challenge in another domain?"
+  "syntax_up": {
+    "_description": "improve syntax for input",
+    "input_variables": ["input"],
+    "template": "improve the syntax of the following: {input}"
   },
-  "what_implications_does_concept": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["concept"],
-    "template": "What implications does the {concept} have for other related fields?"
-  },
-  "what_other_opportunities_idea": {
-    "_description": "Template generated from prpr_1",
-    "input_variables": ["idea"],
-    "template": "What other opportunities could be unlocked by taking the {idea} further?"
+  "comp_test": {
+    "_description": "write a test input for compression testing",
+    "input_variables": ["field", "char_length"],
+    "template": "You are an expert in {field}, write a {char_length}+ character sample text with densely packed information presented in as concise a manner as possible where you utilize every character to the best of your ability."
   }
 }
