@@ -39,25 +39,10 @@
     "input_variables": ["code"],
     "template": "Write a Flask front end for this code: {code}"
   },
-  "compress4": {
-    "_description": "compress text",
-    "input_variables": ["compress"],
-    "template": "Compress the text below into ≤280 characters. Retain the ability for GPT to accurately reconstruct the original intention. Use abbreviations, symbols (unicode, emoji, etc.), and language mixing. Ensure lossless compression: {compress}"
-  },
-  "decompress4": {
-    "_description": "decompress text",
-    "input_variables": ["compress"],
-    "template": "Reconstruct the original text from the compressed version below. The compressed text was generated using abbreviations, symbols (unicode, emoji, etc.), and language mixing. Ensure accurate reconstruction of the original text: {compress}"
-  },
   "compress": {
     "_description": "compress text 2",
     "input_variables": ["compress"],
     "template": "compress the following text in a way that is lossless but results in the minimum number of tokens which could be fed into an LLM like yourself as-is and produce the same output. feel free to use multiple languages, symbols, other up-front priming to lay down rules. this is entirely for yourself to recover and proceed from with the same conceptual priming, not for humans to decompress: {compress}"
-  },
-  "compress3": {
-    "_description": "compress text 2",
-    "input_variables": ["compress"],
-    "template": "Compress the following text using a lossless algorithm that produces the minimum number of tokens for an LLM such as yourself to process. You may use multiple languages, symbols, and other priming techniques to create rules. This compression is for your use only, and should allow you to recover and produce the same output as the original text with the same conceptual priming, not for humans to decompress: {compress}"
   },
   "decompress": {
     "_description": "decompress text",
