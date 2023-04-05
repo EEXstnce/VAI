@@ -7,12 +7,12 @@
   "Prompt_gen1": {
     "_description": "domain > prpr_1",
     "input_variables": ["domain"],
-    "template": "Collect your thoughts and assume the role of an expert in {domain}. Use the following structure to return 5 prompt that have transferability to other domains and don't reference the given {domain}: \"transferable_idea\": PromptTemplate( input_variables=[\"input\"], template=\"your prompt here can wrap {{thing}}\", ),"
+    "template": "Collect your thoughts and assume the role of an expert in {domain}. Use the following structure to return a prompt that have transferability to other domains and don't reference the given {domain}: \"transferable_idea\": PromptTemplate( input_variables=[\"input\"], template=\"your prompt here can wrap {{thing}}\", ),"
   },
   "Prompt_gen2": {
     "_description": "domain > prpr_2",
     "input_variables": ["domain"],
-    "template": "Imagine that you are an expert in {domain}, and you want to explore how the concepts and ideas from that domain can be applied to other areas. Using the following relative structure (take some creative liberty occasionally), provide 5 prompts that illustrate transferable ideas that don't reference the original domain explicitly: \"transferable_idea\": PromptTemplate( input_variables=[\"MUST_BE_PRESENT_INPUT_VAR\"], template=\"your ideas about {{MUST_BE_PRESENT_INPUT_VAR}} ending in some open ended way\",), *ensure formatting, don't mention original domain, and end your prompt with ONE of the following not always a question,.:;?"
+    "template": "Imagine that you are an expert in {domain}, and you want to explore how the concepts and ideas from that domain can be applied to other areas. Using the following relative structure (take some creative liberty occasionally), provide a prompt that illustrate transferable ideas that don't reference the original domain explicitly: \"transferable_idea\": PromptTemplate( input_variables=[\"MUST_BE_PRESENT_INPUT_VAR\"], template=\"your ideas about {{MUST_BE_PRESENT_INPUT_VAR}} ending in some open ended way\",), *ensure formatting, don't mention original domain, and end your prompt with ONE of the following not always a question,.:;?"
   },
   "test": {
     "_description": "app_idea > test",
