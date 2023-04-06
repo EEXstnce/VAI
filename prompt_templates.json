@@ -17,7 +17,7 @@
   "test": {
     "_description": "app_idea > test",
     "input_variables": ["app_idea"],
-    "template": "write me a python app to do the following, include all necessary imports: {app_idea}"
+    "template": "write me a python code for a {app_idea} app. Include all necessary imports, make sure the program will run out of the box."
   },
   "front": {
     "_description": "test > front",
@@ -52,7 +52,7 @@
   "compare_stats": {
     "_description": "evaluate compression",
     "input_variables": ["compress", "decompress"],
-    "template": "Statistically tell me about the effectiveness of this compression in terms of size reduction, and maintenance of information conveyed, original text -> decompressed text is most important./n    compressed: {compress} /n    decompressed: {decompress}"
+    "template": "Statistically tell me about the effectiveness of this compression in terms of token use reduction, and maintenance of information conveyed, original text -> decompressed text is most important./n    compressed: {compress} /n    decompressed: {decompress}"
   },
   "syntax_up": {
     "_description": "improve syntax for input",
