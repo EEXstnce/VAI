@@ -19,15 +19,15 @@
     "input_variables": ["app_idea"],
     "template": "write me a python code for a {app_idea} app. Include all necessary imports, make sure the program will run out of the box."
   },
+  "refactor": {
+    "_description": "refactor code",
+    "input_variables": ["test", "refactor"],
+    "template": "Take my code here: {test} and help me refactor to {refactor}. Include all necessary imports, make sure the program will run out of the box."
+  },
   "front": {
     "_description": "test > front",
     "input_variables": ["test"],
     "template": "write me a flask front end for this code called test.py, include all necessary imports: {test}"
-  },
-  "bugs": {
-    "_description": "test > bugs",
-    "input_variables": ["test"],
-    "template": "pretend you are a python compiler, run the following code and determine if there are errors, test.py: {test}"
   },
   "prompt_gpt": {
     "_description": "expert > expertGPT",
