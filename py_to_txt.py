@@ -15,7 +15,7 @@ def main():
     script_name = os.path.basename(__file__)
     prompt_file_name = "prompt.txt"
     file_extensions = (".py", ".json")
-    ignore_files = ["ignore.txt", "skip.txt", "results.json", "prompt_templates.json"]
+    ignore_files = ["history.json", "skip.txt", "results.json", "prompt_templates.json"]
 
     with open(prompt_file_name, "w") as prompt_file:
         for file in get_files_with_extensions(current_dir, file_extensions, exclude_files=[script_name] + ignore_files):

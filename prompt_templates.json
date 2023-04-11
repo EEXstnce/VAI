@@ -24,6 +24,11 @@
     "input_variables": ["test", "refactor"],
     "template": "Take my code here: {test} and help me refactor to {refactor}. Include all necessary imports, make sure the program will run out of the box."
   },
+  "function": {
+    "_description": "modularize code",
+    "input_variables": ["test"],
+    "template": "Take my code here: {test} and help me refactor it into a function that can be called from other code, return only the runnable code."
+  },
   "front": {
     "_description": "test > front",
     "input_variables": ["test"],
@@ -33,11 +38,6 @@
     "_description": "expert > expertGPT",
     "input_variables": ["expertise"],
     "template": "The goal of this exercise is to create an optimal prompt for an AI assistant to become a professional at {expertise}. To do this, think about what qualities a professional in {expertise} should possess. Consider qualities such as creativity, conciseness, clarity, and education to be the goal of this exercise. Then, create a prompt that incorporates these qualities and challenges the AI assistant to apply them to their prompt interactions with the user."
-  },
-  "front_code_in": {
-    "_description": "create a front end from code",
-    "input_variables": ["code"],
-    "template": "Write a Flask front end for this code: {code}"
   },
   "compress": {
     "_description": "compress text 2",

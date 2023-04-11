@@ -69,10 +69,17 @@ llm_config = load_llm_configuration("utils/llm_config.json")
 # Create LLM chains for each prompt template
 llm_chains = create_llm_chains(llm_config)
 
-def create_and_run_chain(selected_flow, previous_results):
+def create_and_run_chain(selected_flow, all_results):
     all_steps = get_all_steps_in_flow(selected_flow, dependencies)
     overall_chain = CustomSequentialChain(llm_chains=llm_chains, flow=all_steps)
-    inputs = get_user_input(overall_chain.input_keys, previous_results)
+    inputs = get_user_input(overall_chain.input_keys, all_results)
+    
+    # Check if the value for 'input' is None
+    if inputs.get('input') is None:
+        print("No input provided. Skipping chain execution.")
+        return all_steps, {}, False  # chain_executed is False
+    
+    # Proceed with chain execution
     result = overall_chain.run_chain(inputs)
     print_output(overall_chain.output_keys, result)
-    return all_steps, result
+    return all_steps, result, True  # chain_executed is True

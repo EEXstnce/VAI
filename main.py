@@ -1,19 +1,29 @@
+
+
 import json
 from utils.llm_chains import create_and_run_chain
 from utils.chat_utils import history, display_flows_and_get_selection
 from utils.result_saving import save_history_to_json, handle_saving_and_user_prompts
 from langchain.schema import messages_from_dict, messages_to_dict
 
+
 class ChatSession:
     def __init__(self):
         self.previous_results = {}
+        self.all_results = {}  # Dictionary of lists to store all results
         self.chat_history = []
 
     def run_chain(self, selected_flow):
-        all_steps, result = create_and_run_chain(selected_flow, self.previous_results)
-        output_key = list(result.keys())[0]  # Get the key of the result (assumes single output key)
-        continue_chat = handle_saving_and_user_prompts(all_steps, result, output_key)
+        all_steps, result, chain_executed = create_and_run_chain(selected_flow, self.all_results)
+        if chain_executed:
+            # Ask about saving only if the chain was executed
+            continue_chat = handle_saving_and_user_prompts(all_steps, result)
+        else:
+            continue_chat = ""  # Skip saving prompts
         self.previous_results = result.copy()
+        # Update all_results by appending each result to its corresponding key
+        for key, value in result.items():
+            self.all_results.setdefault(key, []).append(value)
         new_messages = messages_from_dict(messages_to_dict(history.messages))
         self.chat_history.extend(new_messages)
         return continue_chat
@@ -22,11 +32,16 @@ class ChatSession:
         save_history_to_json(self.chat_history)
 
     def chat(self):
+        print("Type 'quit' or 'q' to end the chat at any time.")
         while True:
             selected_flow = display_flows_and_get_selection()
-            continue_chat = self.run_chain(selected_flow)
-            if not continue_chat:
+            if selected_flow.lower() in ('quit', 'q'):
                 self.save_history()
+                print("Chat session ended.")
+                break
+            continue_chat = self.run_chain(selected_flow)
+            self.save_history()
+            if not continue_chat:
                 break
 
 # Start the chat

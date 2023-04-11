@@ -14,17 +14,25 @@ def read_json_data(filename: str):
             return json.load(f)
     return []
 
+# Global variable to keep track of the last file saved
+last_file_saved = None
+
 # Function to save the result to a Python file
 def save_result_to_py(chain: List[str], result: Dict[str, str]) -> None:
+    global last_file_saved
     dir_path = 'code'
     os.makedirs(dir_path, exist_ok=True)
 
     for key in chain:
-        filename = os.path.join(dir_path, f"{key}.py")
+        if last_file_saved == 'test.py':
+            filename = os.path.join(dir_path, 'refactor.py')
+        else:
+            filename = os.path.join(dir_path, 'test.py')
         with open(filename, "w") as f:
             f.write(result[key])
 
-    print("Results saved to Python files.")
+        last_file_saved = filename.split('/')[-1]  # Update the last file saved
+        print(f"Result saved to {last_file_saved}.")
 
 # Function to save the result to a JSON file, formatted as specified
 def save_result_to_json(chain: List[str], result: Dict[str, str]) -> None:
@@ -133,21 +141,21 @@ def handle_new_prompt_templates(result, output_key):
                 new_template_description = f"Template generated from {output_key}"
                 save_new_prompt_template(new_template_name, new_template_description, input_variables, template, new_dependencies=[])
 
-def handle_saving_and_user_prompts(all_steps, result, output_key):
+def handle_saving_and_user_prompts(all_steps, result):
     save_to_py = input("Do you want to save the result to a Python file? (y/n) ")
     if save_to_py.lower() == "y":
         save_result_to_py(all_steps, result)
         print("Result saved to a Python file.")
     elif save_to_py.lower() == "n":
         print("Result not saved.")
-    
-    save_to_template = input("Do you want to save the result to a new prompt template? (y/n) ")
-    if save_to_template.lower() == "y":
-        handle_new_prompt_templates(result, output_key)
-        print("Result saved to a new prompt template.")
-    elif save_to_template.lower() == "n":
-        print("Result not saved to template.")
+        save_to_template = input("Do you want to save the result to a new prompt template? (y/n) ")
+        if save_to_template.lower() == "y":
+            for key, value in result.items():
+                handle_new_prompt_templates({key: value}, key)
+            print("Result saved to a new prompt template.")
+        elif save_to_template.lower() == "n":
+            print("Result not saved to template.")
     
     save_result_to_json(all_steps, result)
-    run_again = input("Do you want to run the app again? (y/n) ")
+    run_again = ""
     return run_again.lower() == "y"
