@@ -1,64 +1,58 @@
 
 
 #import necessary modules
-import math
+import random
 
-#define a function to display the numbers and symbols
-def display(num):
-    print(num)
+#define functions
+def add(x, y):
+   return x + y
 
-#define a function to get user input
-def get_input():
-    num = input("Enter a number or symbol: ")
-    return num
+def subtract(x, y):
+   return x - y
 
-#define a function to store and recall numbers and calculations
-def memory(num):
-    memory_list = []
-    memory_list.append(num)
-    return memory_list
+def multiply(x, y):
+   return x * y
 
-#define a function to perform basic calculations
-def calculations(num1, num2, operator):
-    if operator == "+":
-        return num1 + num2
-    elif operator == "-":
-        return num1 - num2
-    elif operator == "*":
-        return num1 * num2
-    elif operator == "/":
-        return num1 / num2
+def divide(x, y):
+   return x / y
 
-#define a function to perform trigonometric calculations
-def trig_calculations(num, operator):
-    if operator == "sin":
-        return math.sin(num)
-    elif operator == "cos":
-        return math.cos(num)
-    elif operator == "tan":
-        return math.tan(num)
+def power(x, y):
+   return x ** y
 
-#define a function to calculate the square root
-def square_root(num):
-    return math.sqrt(num)
+def root(x, y):
+   return x ** (1/y)
 
-#main program
-while True:
-    num = get_input()
-    display(num)
-    memory_list = memory(num)
-    if num == "+" or num == "-" or num == "*" or num == "/":
-        num1 = float(input("Enter the first number: "))
-        num2 = float(input("Enter the second number: "))
-        result = calculations(num1, num2, num)
-        print("Result: ", result)
-    elif num == "sin" or num == "cos" or num == "tan":
-        num = float(input("Enter the number: "))
-        result = trig_calculations(num, num)
-        print("Result: ", result)
-    elif num == "sqrt":
-        num = float(input("Enter the number: "))
-        result = square_root(num)
-        print("Result: ", result)
-    else:
-        print("Invalid input")
+#take input from the user
+print("Select operation.")
+print("1.Add")
+print("2.Subtract")
+print("3.Multiply")
+print("4.Divide")
+print("5.Power")
+print("6.Root")
+
+choice = input("Enter choice(1/2/3/4/5/6):")
+
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+if choice == '1':
+   print(num1,"+",num2,"=", add(num1,num2))
+
+elif choice == '2':
+   print(num1,"-",num2,"=", subtract(num1,num2))
+
+elif choice == '3':
+   print(num1,"*",num2,"=", multiply(num1,num2))
+
+elif choice == '4':
+   print(num1,"/",num2,"=", divide(num1,num2))
+
+elif choice == '5':
+   print(num1,"**",num2,"=", power(num1,num2))
+
+elif choice == '6':
+   print(num1,"**(1/",num2,")=", root(num1,num2))
+
+else:
+   print("Invalid input")

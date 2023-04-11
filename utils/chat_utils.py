@@ -107,12 +107,14 @@ def get_user_input(input_keys: List[str], all_results: Dict[str, List[str]] = No
                         options_map[option_count] = (k, v)
                         option_count += 1
 
-                result_number = int(input(f"Enter the number of the result you want to use for {key}: "))
+                # Update the prompt to include the total number of available options
+                result_number = int(input(f"Enter the number of the result you want to use for {key} (1-{len(options_map)}): "))
                 selected_result_key, value = options_map[result_number]
             else:
                 print("No previous results available.")
                 # Prompt user again for the same key
                 continue
+
 
 
         elif user_choice == '3':
