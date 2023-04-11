@@ -41,8 +41,8 @@ class ChatSession:
                 break
             continue_chat = self.run_chain(selected_flow)
             self.save_history()
-            if not continue_chat:
-                break
+            # Remove the condition to exit the loop based on continue_chat
+
 
 # Start the chat
 if __name__ == '__main__':

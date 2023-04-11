@@ -29,6 +29,11 @@
     "input_variables": ["test"],
     "template": "Take my code here: {test} and help me refactor it into a function that can be called from other code, return only the runnable code."
   },
+  "call_function": {
+    "_description": "modularize code",
+    "input_variables": ["function"],
+    "template": "Read this function: {function} and write code to call the function, return only runnable code."
+  },
   "front": {
     "_description": "test > front",
     "input_variables": ["test"],

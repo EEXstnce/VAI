@@ -111,7 +111,9 @@ def get_user_input(input_keys: List[str], all_results: Dict[str, List[str]] = No
                 selected_result_key, value = options_map[result_number]
             else:
                 print("No previous results available.")
+                # Prompt user again for the same key
                 continue
+
 
         elif user_choice == '3':
             # Load from file using file explorer
@@ -129,15 +131,16 @@ def get_user_input(input_keys: List[str], all_results: Dict[str, List[str]] = No
             if file_path is None:
                 print("File explorer exited. No file selected.")
                 value = None
-                break  # Exit the loop to continue with the chat session
             elif os.path.isfile(file_path):
                 value = load_file_contents(file_path)
-                break  # Exit the loop to continue with the chat session
+                # print(f"Loaded file content: {value}")  # Print loaded file content for debugging
             else:
                 print("The specified file does not exist.")
+                value = None
         
         inputs[key] = value
     return inputs
+
 
 # Function to print output
 def print_output(output_keys: List[str], result: Dict[str, str]) -> None:

@@ -6,6 +6,7 @@
   "front": ["test"],
   "refactor": [],
   "function": [],
+  "call_function": [],
   "return": [],
   "compress2": [],
   "compress": [],

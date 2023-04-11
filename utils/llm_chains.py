@@ -41,7 +41,9 @@ class CustomSequentialChain(BaseModel):
 
         for key in self.flow:
             process_single_chain(key, inputs, visited, results, self.llm_chains)
-
+        
+        # print(f"Model output: {results}")  # Debug: Print model output
+        
         return results
 
 
@@ -74,12 +76,15 @@ def create_and_run_chain(selected_flow, all_results):
     overall_chain = CustomSequentialChain(llm_chains=llm_chains, flow=all_steps)
     inputs = get_user_input(overall_chain.input_keys, all_results)
     
-    # Check if the value for 'input' is None
-    if inputs.get('input') is None:
+    # print(f"Inputs to the chain: {inputs}")  # Debug: Print inputs to the chain
+    
+    # Check if file input is required and if the value for 'input' is None
+    if 'input' in overall_chain.input_keys and inputs.get('input') is None:
         print("No input provided. Skipping chain execution.")
         return all_steps, {}, False  # chain_executed is False
     
     # Proceed with chain execution
     result = overall_chain.run_chain(inputs)
+    # print(f"Result from the chain: {result}")  # Debug: Print result from the chain
     print_output(overall_chain.output_keys, result)
     return all_steps, result, True  # chain_executed is True
