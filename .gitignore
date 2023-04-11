@@ -43,7 +43,8 @@ env/
 # e.g., data/, output/, etc.
 va/lib/python3.10/site-packages/**
 va/**
-code/**
+code/test.py
+code/refactor.py
 results.json
 history.json
 prompt.txt
