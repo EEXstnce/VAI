@@ -4,10 +4,15 @@
     "input_variables": ["input"],
     "template": "{input}"
   },
+  "st_memory": {
+    "_description": "short term memory prompting",
+    "input_variables": ["input", "input_2"],
+    "template": "{input} /n {input_2}"
+  },
   "Prompt_gen1": {
-    "_description": "domain > prpr_1",
-    "input_variables": ["domain"],
-    "template": "Collect your thoughts and assume the role of an expert in {domain}. Use the following structure to return a prompt that have transferability to other domains and don't reference the given {domain}: \"transferable_idea\": PromptTemplate( input_variables=[\"input\"], template=\"your prompt here can wrap {{thing}}\", ),"
+    "_description": "action > prompt",
+    "input_variables": ["pr_action"],
+    "template": "Use the following structure to return a prompt that {pr_action}: \"prompt_xyz\": PromptTemplate( input_variables=[\"input\", \"next_input_if_need\"], template=\"your prompt here can wrap {{input(s)}} etc. \", ),"
   },
   "Prompt_gen2": {
     "_description": "domain > prpr_2",
@@ -24,15 +29,35 @@
     "input_variables": ["test", "refactor"],
     "template": "Take my code here: {test} and help me refactor to {refactor}. Include all necessary imports, make sure the program will run out of the box."
   },
-  "function": {
+  "ref_func": {
+    "_description": "refactor with the logic of some given code",
+    "input_variables": ["test", "example"],
+    "template": "Take my code here: {test} and help me refactor to implement functionality present in the following example: /n {example}"
+  },
+  "refactor_compress": {
+    "_description": "refactor code to add condenser code",
+    "input_variables": ["code"],
+    "template": "Given the code snippet below, provide a minimal representation of its functionality by listing the key functions, their purpose inside a \"\"\" comment block \"\"\", and the expected inputs and outputs for each function. /n code: {code} "
+  },
+  "pull_outline": {
+    "_description": "pull outline comments ",
+    "input_variables": ["code"],
+    "template": "Take my code here: {code} pull all function names and their comments enclosed between \"\"\". "
+  },
+  "function_def": {
     "_description": "modularize code",
-    "input_variables": ["test"],
-    "template": "Take my code here: {test} and help me refactor it into a function that can be called from other code, return only the runnable code."
+    "input_variables": ["code"],
+    "template": "As a software developer, having an efficient outline of your code is crucial for understanding its structure and execution flow. Your task is to create a concise outline for the provided code. The outline should include for each function: /n /n     -Functions or methods, along with their entry and exit points /n /n     -Function input parameters and return values (if applicable) /n /n     -External module interactions/n /n     -Key logic or operations in the code /n /n     -Any potential exceptions or special conditions /n /n     -Code to outline: {code}"
   },
   "call_function": {
     "_description": "modularize code",
     "input_variables": ["function"],
     "template": "Read this function: {function} and write code to call the function, return only runnable code."
+  },
+  "functify": {
+    "_description": "turn it into a function to be called",
+    "input_variables": ["function"],
+    "template": "Turn the following code into a function that gets run under /n `if __name__ == '__main__':` /n code: "
   },
   "front": {
     "_description": "test > front",
