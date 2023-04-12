@@ -56,8 +56,8 @@
   },
   "functify": {
     "_description": "turn it into a function to be called",
-    "input_variables": ["function"],
-    "template": "Turn the following code into a function that gets run under /n `if __name__ == '__main__':` /n code: "
+    "input_variables": ["code"],
+    "template": "Turn the following code into a function that gets run under /n `if __name__ == '__main__':` /n code: {code}"
   },
   "front": {
     "_description": "test > front",
