@@ -93,5 +93,50 @@
     "_description": "write a test input for compression testing",
     "input_variables": ["field", "char_length"],
     "template": "You are an expert in {field}, write a {char_length}+ character sample text with densely packed information presented in as concise a manner as possible where you utilize every character to the best of your ability."
+  },
+  "pareto": {
+    "_description": "20% that yields 80%",
+    "input_variables": ["topic_or_skill"],
+    "template": "Identify the 20% of {topic_or_skill} that will yield 80% of the desired results and provide a focused learning plan to master it."
+  },
+  "feynman": {
+    "_description": "utilize feynman technique for deep learning",
+    "input_variables": ["topic_or_skill"],
+    "template": "Explain {topic_or_skill} in the simplest terms possible as if teaching it to a complete beginner. Identify gaps in my understanding and suggest resources to fill them."
+  },
+  "interleave": {
+    "_description": "Optimize learning through interleaving",
+    "input_variables": ["subject"],
+    "template": "Create a study plan that mixes different topics or skills within {subject} to help me develop a more robust understanding and facilitate connections between them."
+  },
+  "spaced_reps": {
+    "_description": "Implement spaced repetition.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Design a spaced repetition schedule for me to effectively review {topic_or_skill} over time, ensuring better retention and recall."
+  },
+  "mental_model": {
+    "_description": "Develop a mental model for complex concepts.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Help me create mental models or analogies to better understand and remember key concepts in {topic_or_skill}."
+  },
+  "exp_modalities": {
+    "_description": "Suggest various learning resources.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Suggest various learning resources (e.g., videos, books, podcasts, interactive exercises) for {topic_or_skill} that cater to different learning styles."
+  },
+  "actv_recall": {
+    "_description": "Harness the power of active recall.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Provide me with a series of challenging questions or problems related to {topic_or_skill} to test my understanding and improve long-term retention."
+  },
+  "enhance_mem": {
+    "_description": "Use storytelling to enhance memory and comprehension.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Transform key concepts or lessons from {topic_or_skill} into engaging stories or narratives to help me better remember and understand the material."
+  },
+  "delib_practice": {
+    "_description": "Implement a deliberate practice routine.",
+    "input_variables": ["topic_or_skill"],
+    "template": "Design a deliberate practice routine for {topic_or_skill} focusing on my weaknesses and providing regular feedback for improvement."
   }
 }

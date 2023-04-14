@@ -13,7 +13,7 @@ It's recommended to run this project in a virtual environment to avoid any versi
 
 1. Install virtualenv by running pip install virtualenv.
 2. Create a new virtual environment by running virtualenv venv.
-3. Activate the virtual environment by running source venv/bin/activate on Linux/macOS or venv\Scripts\activate on Windows.##
+3. Activate the virtual environment by running `source venv/bin/activate` on Linux/macOS or venv\Scripts\activate on Windows.##
 
 This is a Python project that generates text prompts based on user input. The project includes several files:
 
@@ -35,7 +35,7 @@ The following dependencies are required to run this project:
 ## Usage
 
 1. Clone the repository and navigate to its directory.
-2. Install the required dependencies using pip install -r requirements.txt.
+2. Install the required dependencies using pip install -r requirements.txt
 3. Create a .env file in the project directory and set the OPENAI_API_KEY environment variable to your OpenAI API key.
 4. Run python main.py and enter a product when prompted.
 5. The program will output generated prompts for the company name, slogan, and marketing strategy based on the product input.

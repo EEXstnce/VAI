@@ -18,5 +18,14 @@
   "decompress": ["compress"],
   "compare_stats": ["compress", "decompress"],
   "syntax_up": [],
-  "comp_test": []
+  "comp_test": [],
+  "pareto": [],
+  "feynman": [],
+  "interleave": [],
+  "spaced_reps": [],
+  "mental_model": [],
+  "exp_modalities": [],
+  "actv_recall": [],
+  "enhance_mem": [],
+  "delib_practice": []
 }
