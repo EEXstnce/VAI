@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Interface</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div id="chatbox">
+        <!-- Chat messages will go here -->
+    </div>
+
+    <form id="messageForm">
+        <input type="text" id="messageInput" placeholder="Type a message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+    $(document).ready(function(){
+        $('#messageForm').on('submit', function(e){
+            e.preventDefault();
+
+            let message = $('#messageInput').val();
+            $('#chatbox').append('<p>You: ' + message + '</p>');
+
+            $.ajax({
+                url: '/message',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({message: message}),
+                success: function(response){
+                    $('#chatbox').append('<p>Bot: ' + response['response'] + '</p>');
+                }
+            });
+
+            $('#messageInput').val('');
+        });
+    });
+    </script>
+</body>
+</html>
